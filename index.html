@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cobrinha Arcade Pro</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Overlay de Início (Tela do Botão Play) -->
+  <div id="start-overlay" class="start-overlay">
+    <div class="start-card">
+      <h1>SNAKE ARCADE</h1>
+      <p>Coma as frutas, evite as paredes, gerencie suas 3 vidas e vença o ranking!</p>
+      <button id="start-game-btn" class="btn-play">▶ JOGAR</button>
+      <button id="settings-btn" class="btn btn-secondary" style="margin-top: 10px; width: 100%;">⚙ Configurações</button>
+    </div>
+  </div>
+
+  <!-- Container principal do jogo -->
+  <div class="game-container">
+    <!-- Overlay da Contagem Regressiva -->
+    <div id="countdown-overlay" class="hidden">
+      <div id="countdown-text">3</div>
+    </div>
+
+    <!-- Painel de Status (HUD superior) -->
+    <header class="hud">
+      <div class="hud-item">
+        <span class="label">VIDAS</span>
+        <span id="lives-display">❤️❤️❤️</span>
+      </div>
+      <div class="hud-item">
+        <span class="label">PONTOS</span>
+        <span id="score">0</span>
+      </div>
+      <div class="hud-item">
+        <span class="label">FASE / VEL</span>
+        <span id="speed-level">Fase 1 (1x)</span>
+      </div>
+      <div class="hud-item">
+        <span class="label">RECORDE</span>
+        <span id="high-score">0</span>
+      </div>
+    </header>
+
+    <!-- Canvas do Jogo -->
+    <canvas id="gameCanvas" width="600" height="450"></canvas>
+
+    <!-- Barra de Controles Inferior -->
+    <footer class="controls">
+      <button id="pause-btn" class="btn">Pausar</button>
+      <button id="restart-btn" class="btn btn-secondary">Reiniciar</button>
+      <button id="ranking-btn" class="btn btn-warning">🏆 Ranking</button>
+    </footer>
+
+    <!-- Controles Virtuais D-Pad para Celular -->
+    <div class="dpad-container">
+      <button id="btn-up" class="touch-btn dpad-btn dpad-up">▲</button>
+      <div class="dpad-middle">
+        <button id="btn-left" class="touch-btn dpad-btn">◀</button>
+        <button id="btn-down" class="touch-btn dpad-btn">▼</button>
+        <button id="btn-right" class="touch-btn dpad-btn">▶</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal de Configurações Avançadas -->
+  <div id="settings-modal" class="modal hidden">
+    <div class="modal-content">
+      <h2>⚙ Configurações</h2>
+      
+      <div class="setting-item">
+        <label for="initial-speed-select">Velocidade Inicial:</label>
+        <select id="initial-speed-select" class="select-input">
+          <option value="150">Lenta (Fácil)</option>
+          <option value="120" selected>Normal (Médio)</option>
+          <option value="90">Rápida (Difícil)</option>
+        </select>
+      </div>
+
+      <div class="setting-item">
+        <label for="sound-move">Som de Movimento (Passos):</label>
+        <input type="checkbox" id="sound-move" checked>
+      </div>
+
+      <div class="setting-item">
+        <label for="sound-eat">Som ao Comer Frutas:</label>
+        <input type="checkbox" id="sound-eat" checked>
+      </div>
+
+      <div class="setting-item">
+        <label for="sound-hit">Som de Dano e Game Over:</label>
+        <input type="checkbox" id="sound-hit" checked>
+      </div>
+
+      <button id="close-settings-btn" class="btn" style="margin-top: 15px;">Salvar e Fechar</button>
+    </div>
+  </div>
+
+  <!-- Modal do Ranking -->
+  <div id="leaderboard-modal" class="modal hidden">
+    <div class="modal-content">
+      <h2>🏆 Ranking Global (Top 5)</h2>
+      <ol id="leaderboard-list">
+        <li>Carregando ranking global...</li>
+      </ol>
+      <button id="close-leaderboard-btn" class="btn">Fechar</button>
+    </div>
+  </div>
+
+ <!-- SDKs do Firebase (Versão Compatível) -->
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
+
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyCc50sfHCyfE3nUZ4Brk3AFU6AfxEXWSTA",
+      authDomain: "jogo-da-cobrinha-7eefc.firebaseapp.com",
+      databaseURL: "https://jogo-da-cobrinha-7eefc-default-rtdb.firebaseio.com",
+      projectId: "jogo-da-cobrinha-7eefc",
+      storageBucket: "jogo-da-cobrinha-7eefc.firebasestorage.app",
+      messagingSenderId: "249817232143",
+      appId: "1:249817232143:web:12817eab368d749d4e447a"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const database = firebase.database();
+  </script>
+
+  <script src="script.js"></script>
+</body>
+</html>
