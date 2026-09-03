@@ -257,3 +257,13 @@ body {
 .hidden {
   display: none !important;
 }
+
+/* Impede que a tela role ao usar as setas do teclado e espaço */
+body, html {
+  overflow: hidden;
+  touch-action: none;
+}
+
+canvas {
+  outline: none;
+}
